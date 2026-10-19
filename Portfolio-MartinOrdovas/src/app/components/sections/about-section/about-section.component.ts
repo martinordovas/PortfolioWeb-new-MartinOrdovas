@@ -8,6 +8,7 @@ import { ProfileInfo, Skill } from '../../../core/models/portfolio.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './about-section.component.html',
+  styleUrl: './about-section.component.css',
 })
 export class AboutSectionComponent {
   protected readonly profile: ProfileInfo = PROFILE_DATA;

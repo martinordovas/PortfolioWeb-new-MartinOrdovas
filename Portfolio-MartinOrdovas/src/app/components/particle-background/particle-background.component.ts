@@ -27,13 +27,7 @@ interface StarParticle {
   selector: 'app-particle-background',
   standalone: true,
   templateUrl: './particle-background.component.html',
-  styles: [
-    `
-      :host {
-        display: contents;
-      }
-    `,
-  ],
+  styleUrl: './particle-background.component.css',
 })
 export class ParticleBackgroundComponent implements OnInit, OnDestroy {
   @ViewChild('starCanvas', { static: true })

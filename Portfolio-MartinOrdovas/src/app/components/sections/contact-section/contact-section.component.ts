@@ -8,6 +8,7 @@ import { ProfileInfo, SocialLink } from '../../../core/models/portfolio.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './contact-section.component.html',
+  styleUrl: './contact-section.component.css',
 })
 export class ContactSectionComponent {
   protected readonly profile: ProfileInfo = PROFILE_DATA;

@@ -9,6 +9,7 @@ import { ProfileInfo } from '../../../core/models/portfolio.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './hero-section.component.html',
+  styleUrl: './hero-section.component.css',
 })
 export class HeroSectionComponent {
   protected readonly scrollService = inject(ScrollService);

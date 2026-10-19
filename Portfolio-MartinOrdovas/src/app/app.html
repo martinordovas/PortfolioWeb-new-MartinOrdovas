@@ -8,9 +8,13 @@
 <app-scroll-indicators />
 
 <!-- Main scroll-snap container -->
-<main #scrollContainer class="snap-container w-full h-full relative z-10">
-  <app-hero-section />
-  <app-about-section />
-  <app-projects-section />
-  <app-contact-section />
+<main
+  #scrollContainer
+  (scroll)="onContainerScroll()"
+  class="snap-container w-full h-full relative z-10"
+>
+  <app-hero-section id="inicio" />
+  <app-about-section id="sobreMi" />
+  <app-projects-section id="proyectos" />
+  <app-contact-section id="contactame" />
 </main>

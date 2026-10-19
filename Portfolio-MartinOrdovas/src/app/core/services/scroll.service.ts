@@ -5,54 +5,83 @@ import { Injectable, signal } from '@angular/core';
 })
 export class ScrollService {
   readonly activeSection = signal<string>('inicio');
-  private observer: IntersectionObserver | null = null;
+  private scrollContainer: HTMLElement | null = null;
+  private sectionIds: string[] = ['inicio', 'sobreMi', 'proyectos', 'contactame'];
+  private isThrottled = false;
 
   scrollToSection(sectionId: string): void {
     const cleanId = sectionId.replace(/^#/, '');
     const element = document.getElementById(cleanId);
-    if (element) {
+
+    if (this.scrollContainer && element) {
+      // Calculate exact offset inside scroll container
+      const targetTop = element.offsetTop;
+      this.scrollContainer.scrollTo({
+        top: targetTop,
+        behavior: 'smooth',
+      });
+      this.activeSection.set(cleanId);
+    } else if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       this.activeSection.set(cleanId);
     }
   }
 
   initScrollSpy(sectionIds: string[], scrollContainer?: HTMLElement | null): void {
-    this.cleanup();
+    this.sectionIds = sectionIds;
+    this.scrollContainer = scrollContainer || null;
 
-    if (typeof IntersectionObserver === 'undefined') {
+    if (this.scrollContainer) {
+      // Initial check
+      this.updateActiveSection();
+    }
+  }
+
+  onScroll(): void {
+    if (!this.scrollContainer || this.isThrottled) {
       return;
     }
 
-    const options: IntersectionObserverInit = {
-      root: scrollContainer || null,
-      rootMargin: '-20% 0px -20% 0px',
-      threshold: 0.3,
-    };
-
-    this.observer = new IntersectionObserver((entries) => {
-      // Find the entry that has the highest intersection ratio
-      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      if (visibleEntries.length > 0) {
-        visibleEntries.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        const topEntry = visibleEntries[0];
-        if (topEntry.target.id) {
-          this.activeSection.set(topEntry.target.id);
-        }
-      }
-    }, options);
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        this.observer?.observe(el);
-      }
+    this.isThrottled = true;
+    requestAnimationFrame(() => {
+      this.updateActiveSection();
+      this.isThrottled = false;
     });
   }
 
-  cleanup(): void {
-    if (this.observer) {
-      this.observer.disconnect();
-      this.observer = null;
+  private updateActiveSection(): void {
+    if (!this.scrollContainer) return;
+
+    const scrollTop = this.scrollContainer.scrollTop;
+    const containerHeight = this.scrollContainer.clientHeight;
+    // Target the center-third line of current view
+    const focalPoint = scrollTop + containerHeight * 0.45;
+
+    let closestId = this.sectionIds[0];
+    let minDiff = Infinity;
+
+    for (const id of this.sectionIds) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+
+      const top = el.offsetTop;
+      const height = el.offsetHeight;
+      const middle = top + height / 2;
+
+      // Distance from middle of section to focal point
+      const diff = Math.abs(focalPoint - middle);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestId = id;
+      }
     }
+
+    if (this.activeSection() !== closestId) {
+      this.activeSection.set(closestId);
+    }
+  }
+
+  cleanup(): void {
+    this.scrollContainer = null;
   }
 }

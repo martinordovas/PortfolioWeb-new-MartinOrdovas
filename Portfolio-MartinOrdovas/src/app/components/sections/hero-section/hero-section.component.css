@@ -1,0 +1,7 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}

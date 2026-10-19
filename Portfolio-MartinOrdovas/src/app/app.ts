@@ -53,6 +53,12 @@ export class App implements AfterViewInit, OnDestroy {
     }
   }
 
+  onContainerScroll(): void {
+    if (this.isBrowser) {
+      this.scrollService.onScroll();
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.isBrowser) {
       this.scrollService.cleanup();
