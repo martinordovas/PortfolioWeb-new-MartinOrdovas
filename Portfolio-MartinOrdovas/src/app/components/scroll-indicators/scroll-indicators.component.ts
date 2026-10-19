@@ -8,40 +8,7 @@ import { NavItem } from '../../core/models/portfolio.model';
   selector: 'app-scroll-indicators',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <aside
-      class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center gap-5 select-none"
-      aria-label="Navegación de secciones"
-    >
-      @for (item of navItems; track item.id) {
-        <div class="relative flex items-center group">
-          <!-- Tooltip on hover -->
-          <span
-            class="absolute right-7 px-2.5 py-1 text-xs font-mono font-medium tracking-wider text-[#ede6c8] bg-black/80 border border-white/10 rounded-md backdrop-blur-md opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap shadow-lg"
-          >
-            {{ item.label }}
-          </span>
-
-          <!-- Dot button -->
-          <button
-            type="button"
-            (click)="onDotClick(item.id)"
-            [attr.aria-label]="item.label"
-            class="w-3 h-3 rounded-full transition-all duration-300 cursor-pointer focus:outline-none"
-            [class.bg-[#e192ab]]="scrollService.activeSection() === item.id"
-            [class.border-[#e192ab]]="scrollService.activeSection() === item.id"
-            [class.scale-125]="scrollService.activeSection() === item.id"
-            [class.shadow-[0_0_10px_#e192ab]]="scrollService.activeSection() === item.id"
-            [class.border]="scrollService.activeSection() !== item.id"
-            [class.border-white/60]="scrollService.activeSection() !== item.id"
-            [class.bg-transparent]="scrollService.activeSection() !== item.id"
-            [class.hover:scale-150]="scrollService.activeSection() !== item.id"
-            [class.hover:bg-[#e192ab]/70]="scrollService.activeSection() !== item.id"
-          ></button>
-        </div>
-      }
-    </aside>
-  `,
+  templateUrl: './scroll-indicators.component.html',
 })
 export class ScrollIndicatorsComponent {
   protected readonly scrollService = inject(ScrollService);

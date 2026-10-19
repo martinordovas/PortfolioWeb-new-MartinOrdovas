@@ -8,58 +8,7 @@ import { ProfileInfo } from '../../../core/models/portfolio.model';
   selector: 'app-hero-section',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <section
-      id="inicio"
-      class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-4 sm:px-6 pt-20 pb-16"
-    >
-      <!-- Central Hero Glass Card -->
-      <div
-        class="glass-card w-full max-w-3xl p-6 sm:p-10 md:p-12 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-white/20 animate-in fade-in zoom-in-95 duration-500"
-      >
-        <!-- Name -->
-        <h1
-          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#ede6c8] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.8)]"
-        >
-          {{ profile.name }}
-        </h1>
-
-        <!-- Subtitle Terminal Prompt -->
-        <h2
-          class="mt-3 sm:mt-4 text-base sm:text-lg md:text-xl font-medium text-[#d39c7c] tracking-wide drop-shadow-[1px_1px_4px_rgba(0,0,0,0.9)]"
-        >
-          {{ profile.role }}
-        </h2>
-
-        <!-- Action Buttons -->
-        <div
-          class="mt-8 flex flex-col sm:flex-row items-center sm:justify-end gap-3 sm:gap-4 pt-4 border-t border-white/10"
-        >
-          <a
-            (click)="onNavigate('sobreMi', $event)"
-            href="#sobreMi"
-            class="glass-btn w-full sm:w-auto px-5 py-2.5 rounded-xl text-center text-xs sm:text-sm font-semibold tracking-wider text-[#ede6c8] cursor-pointer"
-          >
-            &gt; about me
-          </a>
-          <a
-            (click)="onNavigate('proyectos', $event)"
-            href="#proyectos"
-            class="glass-btn w-full sm:w-auto px-5 py-2.5 rounded-xl text-center text-xs sm:text-sm font-semibold tracking-wider text-[#ede6c8] cursor-pointer"
-          >
-            &gt; projects
-          </a>
-          <a
-            (click)="onNavigate('contactame', $event)"
-            href="#contactame"
-            class="glass-btn w-full sm:w-auto px-5 py-2.5 rounded-xl text-center text-xs sm:text-sm font-semibold tracking-wider text-[#ede6c8] cursor-pointer"
-          >
-            &gt; contact
-          </a>
-        </div>
-      </div>
-    </section>
-  `,
+  templateUrl: './hero-section.component.html',
 })
 export class HeroSectionComponent {
   protected readonly scrollService = inject(ScrollService);
