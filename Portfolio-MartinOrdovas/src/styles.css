@@ -20,16 +20,36 @@
 
 /* Scroll snap container */
 .snap-container {
-  scroll-snap-type: y mandatory;
   overflow-y: auto;
   height: 100dvh;
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+@media (min-width: 768px) {
+  .snap-container {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 .snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   min-height: 100dvh;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .snap-section {
+    scroll-snap-stop: always;
+  }
+}
+
+/* Hide scrollbar for tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Glassmorphism primitives */
@@ -53,23 +73,22 @@
   background: rgba(99, 99, 99, 0.25);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.25s ease-out;
 }
 
 .glass-btn:hover {
-  background: rgba(0, 0, 0, 0.45);
-  border-color: #e192ab;
+  background: rgba(225, 146, 171, 0.12);
+  border: 1px solid #e192ab;
   color: #e192ab;
-  box-shadow: 0 0 16px rgba(225, 146, 171, 0.45);
-  transform: translateY(-2px);
+  box-shadow: 0 0 8px rgba(225, 146, 171, 0.35), inset 0 0 6px rgba(225, 146, 171, 0.2);
 }
 
 .glass-btn-active {
-  background: rgba(0, 0, 0, 0.45);
-  border-color: #e192ab;
-  color: #e192ab;
-  box-shadow: 0 0 16px rgba(225, 146, 171, 0.45);
+  background: rgba(225, 146, 171, 0.18);
+  border: 1px solid #e192ab !important;
+  color: #e192ab !important;
+  box-shadow: 0 0 8px rgba(225, 146, 171, 0.4), inset 0 0 8px rgba(225, 146, 171, 0.25);
 }
 
 /* Custom Scrollbar */

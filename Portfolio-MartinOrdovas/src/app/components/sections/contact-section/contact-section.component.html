@@ -1,37 +1,37 @@
 <section
   id="contactame"
-  class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-4 sm:px-6 lg:px-8 pt-20 pb-16"
+  class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-3 sm:px-6 lg:px-8 pt-16 pb-8"
 >
-  <!-- Translucent Glassmorphism Card -->
+  <!-- Translucent Glassmorphism Card (optimized for 16:9 viewports & mobile) -->
   <div
-    class="glass-card w-full max-w-5xl p-6 sm:p-8 lg:p-10 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
   >
     <!-- Heading -->
     <h2
-      class="text-2xl sm:text-3xl font-bold tracking-tight text-[#e192ab] mb-6 sm:mb-8 drop-shadow-[2px_2px_4px_#402835]"
+      class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#e192ab] mb-4 sm:mb-6 drop-shadow-[2px_2px_4px_#402835]"
     >
       &gt; contact me
     </h2>
 
     <!-- Grid Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
       <!-- Left Column: Social & Direct Links -->
-      <div class="lg:col-span-4 flex flex-col space-y-4">
+      <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-2.5 sm:gap-3">
         @for (link of socialLinks; track link.id) {
           <a
             [href]="link.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="glass-btn group flex items-center justify-between px-4 py-3 rounded-xl border border-white/10 transition-all duration-300 hover:border-[#e192ab]/60"
+            class="glass-btn group flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-white/10 transition-all duration-300 hover:border-[#e192ab]/60 flex-1"
           >
-            <span class="text-sm sm:text-base font-semibold text-[#ede6c8] group-hover:text-[#e192ab] transition-colors">
+            <span class="text-xs sm:text-sm font-semibold text-[#ede6c8] group-hover:text-[#e192ab] transition-colors">
               {{ link.name }}
             </span>
 
-            <div class="text-neutral-300 group-hover:text-white group-hover:scale-110 transition-all">
+            <div class="text-neutral-300 group-hover:text-white group-hover:scale-110 transition-all ml-2">
               @switch (link.iconType) {
                 @case ('github') {
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
@@ -40,14 +40,14 @@
                   </svg>
                 }
                 @case ('linkedin') {
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path
                       d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 1.54-1.53 1.53 1.53 0 0 0-1.54-1.54 1.53 1.53 0 0 0-1.53 1.54c0 .85.69 1.53 1.53 1.53m1.39 9.74v-8.37H5.07v8.37h2.78z"
                     />
                   </svg>
                 }
                 @case ('email') {
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -63,22 +63,22 @@
       </div>
 
       <!-- Right Column: Translucent Info Box -->
-      <div class="lg:col-span-8">
+      <div class="lg:col-span-7">
         <div
-          class="glass-card-nested p-6 sm:p-8 rounded-xl border border-white/10 shadow-xl flex flex-col justify-between space-y-6"
+          class="glass-card-nested p-4 sm:p-6 rounded-xl border border-white/10 shadow-xl flex flex-col justify-between space-y-4"
         >
-          <p class="text-sm sm:text-base leading-relaxed text-[#ede6c8] drop-shadow">
+          <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-[#ede6c8] drop-shadow">
             {{ profile.statusMessage }}
           </p>
 
           <!-- Quick email interaction -->
-          <div class="flex flex-wrap items-center gap-3 pt-2">
+          <div class="flex flex-wrap items-center gap-2.5 pt-1">
             <button
               type="button"
               (click)="copyEmail()"
-              class="glass-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#ede6c8] flex items-center gap-2 cursor-pointer focus:outline-none"
+              class="glass-btn px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#ede6c8] flex items-center gap-2 cursor-pointer focus:outline-none"
             >
-              <svg class="w-4 h-4 text-[#d39c7c]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-3.5 h-3.5 text-[#d39c7c]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -91,9 +91,9 @@
 
             <a
               href="mailto:martinordovas@gmail.com"
-              class="glass-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#e192ab] flex items-center gap-2 cursor-pointer"
+              class="glass-btn px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#e192ab] flex items-center gap-2 cursor-pointer"
             >
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"

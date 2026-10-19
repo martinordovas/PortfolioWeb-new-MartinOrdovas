@@ -1,66 +1,67 @@
 <section
   id="proyectos"
-  class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-4 sm:px-6 lg:px-8 pt-20 pb-16"
+  class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-3 sm:px-6 lg:px-8 pt-16 pb-8"
 >
-  <!-- Translucent Glassmorphism Card -->
+  <!-- Translucent Glassmorphism Card (optimized for 16:9 viewports & mobile) -->
   <div
-    class="glass-card w-full max-w-5xl p-6 sm:p-8 lg:p-10 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] transition-all duration-300"
   >
-    <!-- Heading -->
-    <h2
-      class="text-2xl sm:text-3xl font-bold tracking-tight text-[#e192ab] mb-6 drop-shadow-[2px_2px_4px_#402835]"
-    >
-      &gt; projects
-    </h2>
+    <!-- Header with Title & Horizontal Tabs -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3 sm:mb-4 shrink-0">
+      <!-- Heading -->
+      <h2
+        class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#e192ab] drop-shadow-[2px_2px_4px_#402835]"
+      >
+        &gt; projects
+      </h2>
 
-    <!-- Tabs Pill Switcher -->
-    <div class="flex flex-wrap items-center gap-2.5 sm:gap-4 mb-6 sm:mb-8">
-      @for (project of projects; track project.id) {
-        <button
-          type="button"
-          (click)="selectProject(project)"
-          class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer focus:outline-none"
-          [class.glass-btn-active]="selectedProject().id === project.id"
-          [class.scale-[1.03]]="selectedProject().id === project.id"
-          [class.glass-btn]="selectedProject().id !== project.id"
-          [class.text-[#ede6c8]]="selectedProject().id !== project.id"
-        >
-          {{ project.tabLabel }}
-        </button>
-      }
+      <!-- Tabs Pill Switcher (overflow-visible on desktop, smooth scroll with safe padding on mobile) -->
+      <div class="flex items-center gap-2 overflow-x-auto sm:overflow-visible no-scrollbar p-2">
+        @for (project of projects; track project.id) {
+          <button
+            type="button"
+            (click)="selectProject(project)"
+            class="glass-btn px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide cursor-pointer whitespace-nowrap focus:outline-none shrink-0"
+            [class.glass-btn-active]="selectedProject().id === project.id"
+            [class.text-[#ede6c8]]="selectedProject().id !== project.id"
+          >
+            {{ project.tabLabel }}
+          </button>
+        }
+      </div>
     </div>
 
-    <!-- Project Detail Card -->
+    <!-- Project Detail Card (Scrollable internally if screen height is very small) -->
     <div
-      class="glass-card-nested p-5 sm:p-7 rounded-xl border border-white/10 shadow-2xl transition-all duration-500"
+      class="glass-card-nested p-3.5 sm:p-5 lg:p-6 rounded-xl border border-white/10 shadow-2xl overflow-y-auto flex-1 min-h-0"
     >
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-center">
         <!-- Project Image Mockup -->
-        <div class="lg:col-span-7 flex justify-center order-2 lg:order-1">
-          <div class="relative w-full max-w-md lg:max-w-none group">
+        <div class="lg:col-span-6 flex justify-center order-2 lg:order-1">
+          <div class="relative w-full group p-1">
             <img
               [src]="selectedProject().image"
               [alt]="selectedProject().title"
-              class="w-full max-h-72 sm:max-h-80 object-cover rounded-xl border border-[#e192ab]/40 shadow-[0_0_15px_rgba(225,146,171,0.35)] transition-all duration-500 group-hover:shadow-[0_0_22px_rgba(225,146,171,0.6)] group-hover:scale-[1.01]"
+              class="w-full aspect-video max-h-44 sm:max-h-52 lg:max-h-60 xl:max-h-64 object-cover rounded-xl border border-[#e192ab]/40 shadow-[0_0_15px_rgba(225,146,171,0.35)] transition-all duration-500 group-hover:shadow-[0_0_22px_rgba(225,146,171,0.6)]"
             />
           </div>
         </div>
 
         <!-- Project Details -->
-        <div class="lg:col-span-5 flex flex-col justify-between space-y-4 order-1 lg:order-2">
+        <div class="lg:col-span-6 flex flex-col justify-between space-y-3 sm:space-y-4 order-1 lg:order-2">
           <div>
             <!-- Title -->
-            <h3 class="text-xl sm:text-2xl font-bold text-[#ede6c8] tracking-tight">
+            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-[#ede6c8] tracking-tight">
               {{ selectedProject().title }}
             </h3>
 
             <!-- Subtitle / Short description -->
-            <p class="mt-2 text-xs sm:text-sm text-[#d39c7c] leading-relaxed font-medium">
+            <p class="mt-1 text-xs sm:text-sm text-[#d39c7c] leading-relaxed font-medium">
               {{ selectedProject().subtitle }}
             </p>
 
             <!-- Bullet points list -->
-            <ul class="mt-4 space-y-2 text-xs sm:text-sm text-[#ede6c8]/90">
+            <ul class="mt-2.5 sm:mt-3 space-y-1 sm:space-y-1.5 text-xs sm:text-sm text-[#ede6c8]/90">
               @for (bullet of selectedProject().bullets; track bullet) {
                 <li class="flex items-start gap-2">
                   <span class="text-[#d39c7c] font-bold shrink-0">&gt;</span>
@@ -71,10 +72,10 @@
 
             <!-- Tech Tags -->
             @if (selectedProject().tags && selectedProject().tags!.length > 0) {
-              <div class="flex flex-wrap gap-1.5 pt-4">
+              <div class="flex flex-wrap gap-1.5 pt-2.5 sm:pt-3">
                 @for (tag of selectedProject().tags; track tag) {
                   <span
-                    class="px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider bg-white/5 border border-white/10 text-neutral-300"
+                    class="px-2 py-0.5 rounded-full text-[10px] font-mono tracking-wider bg-white/5 border border-white/10 text-neutral-300"
                   >
                     {{ tag }}
                   </span>
@@ -83,14 +84,14 @@
             }
           </div>
 
-          <!-- Links -->
-          <div class="flex items-center gap-3 pt-3">
+          <!-- Links with extra bottom padding to avoid clipping -->
+          <div class="flex items-center gap-3 pt-1.5 pb-1">
             @if (selectedProject().githubUrl) {
               <a
                 [href]="selectedProject().githubUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#ede6c8] flex items-center gap-1.5"
+                class="glass-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-[#ede6c8] flex items-center gap-1.5"
               >
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -107,7 +108,7 @@
                 [href]="selectedProject().demoUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#e192ab] flex items-center gap-1.5 border-[#e192ab]/40"
+                class="glass-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-[#e192ab] flex items-center gap-1.5 border-[#e192ab]/40"
               >
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path

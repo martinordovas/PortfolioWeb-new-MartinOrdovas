@@ -1,35 +1,35 @@
 <section
   id="sobreMi"
-  class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-4 sm:px-6 lg:px-8 pt-20 pb-16"
+  class="snap-section relative flex flex-col items-center justify-center min-h-[100dvh] px-3 sm:px-6 lg:px-8 pt-16 pb-8"
 >
-  <!-- Translucent Glassmorphism Card -->
+  <!-- Translucent Glassmorphism Card (optimized for 16:9 viewports & mobile) -->
   <div
-    class="glass-card w-full max-w-5xl p-6 sm:p-8 lg:p-10 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
   >
     <!-- Heading -->
     <h2
-      class="text-2xl sm:text-3xl font-bold tracking-tight text-[#e192ab] mb-6 sm:mb-8 drop-shadow-[2px_2px_4px_#402835]"
+      class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#e192ab] mb-4 sm:mb-6 drop-shadow-[2px_2px_4px_#402835]"
     >
       &gt; about me
     </h2>
 
     <!-- Content Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start">
       <!-- Left Column: Bio & Photo -->
-      <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-6">
-        <p class="text-sm sm:text-base leading-relaxed text-[#ede6c8] drop-shadow">
+      <div class="lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-5">
+        <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-[#ede6c8] drop-shadow">
           {{ profile.bio }}
         </p>
 
         <div
-          class="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-2"
+          class="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-1"
         >
           <!-- Photo with grayscale-to-color hover transition -->
           <div class="relative group shrink-0">
             <img
               [src]="profile.photoUrl"
               [alt]="profile.name"
-              class="w-36 h-36 sm:w-44 sm:h-44 object-cover rounded-xl border border-white/15 shadow-xl filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500 ease-out"
+              class="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 object-cover rounded-xl border border-white/15 shadow-xl filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500 ease-out"
             />
             <div
               class="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none"
@@ -37,7 +37,7 @@
           </div>
 
           <!-- Based in info -->
-          <div class="text-center sm:text-left flex flex-col justify-center sm:pt-4">
+          <div class="text-center sm:text-left flex flex-col justify-center sm:pt-2">
             <span
               class="text-xs uppercase tracking-widest text-[#d39c7c] font-semibold flex items-center justify-center sm:justify-start gap-1.5"
             >
@@ -62,7 +62,7 @@
               </svg>
               Based in
             </span>
-            <p class="mt-1 text-base sm:text-lg font-bold text-[#ede6c8]">
+            <p class="mt-0.5 text-sm sm:text-base lg:text-lg font-bold text-[#ede6c8]">
               {{ profile.location }}
             </p>
           </div>
@@ -72,29 +72,29 @@
       <!-- Right Column: Core Tech Stack -->
       <div class="lg:col-span-5">
         <div
-          class="glass-card-nested p-5 sm:p-6 rounded-xl border border-white/10 shadow-xl transition-all duration-300 hover:scale-[1.01]"
+          class="glass-card-nested p-4 sm:p-5 rounded-xl border border-white/10 shadow-xl transition-all duration-300 hover:scale-[1.01]"
         >
           <h3
-            class="text-xs sm:text-sm font-semibold tracking-widest text-[#d39c7c] uppercase mb-4"
+            class="text-xs sm:text-sm font-semibold tracking-widest text-[#d39c7c] uppercase mb-3"
           >
             &gt; core stack
           </h3>
 
-          <div class="space-y-4">
+          <div class="space-y-3 sm:space-y-3.5">
             @for (skill of skills; track skill.name) {
               <div class="group">
-                <div class="flex items-center justify-between text-xs sm:text-sm text-[#ede6c8] mb-1.5">
-                  <div class="flex items-center gap-2.5">
+                <div class="flex items-center justify-between text-xs sm:text-sm text-[#ede6c8] mb-1">
+                  <div class="flex items-center gap-2">
                     <img
                       [src]="skill.icon"
                       [alt]="skill.name"
-                      class="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                      class="w-4 h-4 sm:w-5 sm:h-5 object-contain transition-transform group-hover:scale-110"
                     />
-                    <span class="font-medium tracking-tight group-hover:text-white transition-colors">
+                    <span class="font-medium tracking-tight group-hover:text-white transition-colors text-xs sm:text-sm">
                       {{ skill.name }}
                     </span>
                   </div>
-                  <span class="text-xs text-neutral-400 font-mono">{{ skill.percentage }}%</span>
+                  <span class="text-[11px] sm:text-xs text-neutral-400 font-mono">{{ skill.percentage }}%</span>
                 </div>
 
                 <!-- Progress Bar -->
