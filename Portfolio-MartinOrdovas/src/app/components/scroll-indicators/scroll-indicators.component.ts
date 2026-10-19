@@ -9,6 +9,7 @@ import { NavItem } from '../../core/models/portfolio.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './scroll-indicators.component.html',
+  styleUrl: './scroll-indicators.component.css',
 })
 export class ScrollIndicatorsComponent {
   protected readonly scrollService = inject(ScrollService);

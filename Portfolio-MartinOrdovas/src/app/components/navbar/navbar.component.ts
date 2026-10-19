@@ -9,6 +9,7 @@ import { NavItem } from '../../core/models/portfolio.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   protected readonly scrollService = inject(ScrollService);
