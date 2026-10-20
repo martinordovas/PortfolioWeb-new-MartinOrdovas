@@ -23,6 +23,17 @@ interface StarParticle {
   spikes: number;
 }
 
+interface ShootingStar {
+  x: number;
+  y: number;
+  length: number;
+  speed: number;
+  angle: number;
+  alpha: number;
+  maxAlpha: number;
+  decay: number;
+}
+
 @Component({
   selector: 'app-particle-background',
   standalone: true,
@@ -36,9 +47,11 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
   private ctx: CanvasRenderingContext2D | null = null;
   private animationFrameId: number | null = null;
   private particles: StarParticle[] = [];
+  private shootingStars: ShootingStar[] = [];
   private mouse = { x: -1000, y: -1000, radius: 100 };
   private isBrowser: boolean;
   private boundResizeHandler = () => this.onWindowResize();
+  private nextShootingStarTimer = 0;
 
   constructor(
     private ngZone: NgZone,
@@ -111,9 +124,9 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Density of fine stars
-    const count = width < 768 ? 90 : 180;
+    const count = width < 768 ? 90 : 190;
     this.particles = [];
+    this.shootingStars = [];
 
     for (let i = 0; i < count; i++) {
       this.particles.push(this.createStar(width, height));
@@ -121,10 +134,9 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
   }
 
   private createStar(width: number, height: number): StarParticle {
-    // Smaller, delicate star size (0.35px to 1.1px)
-    const size = Math.random() * 0.75 + 0.35;
-    const speed = Math.random() * 0.35 + 0.15; // Gentle natural drift
-    const angle = (Math.PI / 180) * 45; // Drift bottom-right (45 deg)
+    const size = Math.random() * 0.8 + 0.35;
+    const speed = Math.random() * 0.3 + 0.1;
+    const angle = (Math.PI / 180) * 40; // Drift angle
 
     return {
       x: Math.random() * width,
@@ -134,10 +146,25 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
       vy: Math.sin(angle) * speed,
       alpha: Math.random(),
       alphaMin: Math.random() * 0.15 + 0.05,
-      alphaMax: Math.random() * 0.45 + 0.55,
-      alphaSpeed: (Math.random() * 0.008 + 0.004) * (Math.random() > 0.5 ? 1 : -1),
+      alphaMax: Math.random() * 0.5 + 0.5,
+      alphaSpeed: (Math.random() * 0.008 + 0.003) * (Math.random() > 0.5 ? 1 : -1),
       spikes: 5,
     };
+  }
+
+  private spawnShootingStar(width: number, height: number): void {
+    const angle = (Math.PI / 180) * (30 + Math.random() * 25);
+    const speed = Math.random() * 6 + 8;
+    this.shootingStars.push({
+      x: Math.random() * (width * 0.7),
+      y: Math.random() * (height * 0.3),
+      length: Math.random() * 80 + 60,
+      speed,
+      angle,
+      alpha: 0,
+      maxAlpha: Math.random() * 0.6 + 0.4,
+      decay: Math.random() * 0.015 + 0.01,
+    });
   }
 
   private startAnimation(): void {
@@ -158,27 +185,24 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
 
     this.ctx.clearRect(0, 0, width, height);
 
+    // Draw and update star particles
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
 
-      // Update position
       p.x += p.vx;
       p.y += p.vy;
 
-      // Wrap around edges
       if (p.x > width + 10) p.x = -10;
       if (p.x < -10) p.x = width + 10;
       if (p.y > height + 10) p.y = -10;
       if (p.y < -10) p.y = height + 10;
 
-      // Twinkle opacity
       p.alpha += p.alphaSpeed;
       if (p.alpha > p.alphaMax || p.alpha < p.alphaMin) {
         p.alphaSpeed = -p.alphaSpeed;
       }
-      p.alpha = Math.max(0.04, Math.min(1, p.alpha));
+      p.alpha = Math.max(0.05, Math.min(1, p.alpha));
 
-      // Mouse interactivity (gentle delicate highlight)
       let currentSize = p.size;
       let currentAlpha = p.alpha;
 
@@ -188,15 +212,13 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
 
       if (dist < this.mouse.radius && dist > 0) {
         const factor = (this.mouse.radius - dist) / this.mouse.radius;
-        currentSize += factor * 0.8;
-        currentAlpha = Math.min(1, currentAlpha + factor * 0.35);
+        currentSize += factor * 0.9;
+        currentAlpha = Math.min(1, currentAlpha + factor * 0.4);
 
-        // Subtle displacement away from cursor
-        p.x -= (dx / dist) * factor * 0.5;
-        p.y -= (dy / dist) * factor * 0.5;
+        p.x -= (dx / dist) * factor * 0.6;
+        p.y -= (dy / dist) * factor * 0.6;
       }
 
-      // Draw delicate 5-pointed star
       this.drawStarShape(
         this.ctx,
         p.x,
@@ -206,6 +228,49 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
         currentSize * 0.6,
         currentAlpha
       );
+    }
+
+    // Manage and draw shooting stars (meteors)
+    this.nextShootingStarTimer++;
+    if (this.nextShootingStarTimer > 180 + Math.random() * 220) {
+      this.spawnShootingStar(width, height);
+      this.nextShootingStarTimer = 0;
+    }
+
+    for (let i = this.shootingStars.length - 1; i >= 0; i--) {
+      const ss = this.shootingStars[i];
+      ss.x += Math.cos(ss.angle) * ss.speed;
+      ss.y += Math.sin(ss.angle) * ss.speed;
+      ss.alpha += 0.05;
+      if (ss.alpha > ss.maxAlpha) {
+        ss.maxAlpha -= ss.decay;
+      }
+
+      if (ss.maxAlpha <= 0 || ss.x > width || ss.y > height) {
+        this.shootingStars.splice(i, 1);
+        continue;
+      }
+
+      const grad = this.ctx.createLinearGradient(
+        ss.x,
+        ss.y,
+        ss.x - Math.cos(ss.angle) * ss.length,
+        ss.y - Math.sin(ss.angle) * ss.length
+      );
+      grad.addColorStop(0, `rgba(224, 242, 254, ${Math.max(0, ss.maxAlpha)})`);
+      grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+      this.ctx.save();
+      this.ctx.strokeStyle = grad;
+      this.ctx.lineWidth = 1.5;
+      this.ctx.beginPath();
+      this.ctx.moveTo(ss.x, ss.y);
+      this.ctx.lineTo(
+        ss.x - Math.cos(ss.angle) * ss.length,
+        ss.y - Math.sin(ss.angle) * ss.length
+      );
+      this.ctx.stroke();
+      this.ctx.restore();
     }
   }
 
@@ -241,9 +306,9 @@ export class ParticleBackgroundComponent implements OnInit, OnDestroy {
     ctx.lineTo(cx, cy - outerRadius);
     ctx.closePath();
 
-    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-    ctx.shadowBlur = 3;
-    ctx.shadowColor = `rgba(255, 235, 245, ${alpha * 0.6})`;
+    ctx.fillStyle = `rgba(224, 242, 254, ${alpha})`;
+    ctx.shadowBlur = 4;
+    ctx.shadowColor = `rgba(56, 189, 248, ${alpha * 0.75})`;
     ctx.fill();
     ctx.restore();
   }

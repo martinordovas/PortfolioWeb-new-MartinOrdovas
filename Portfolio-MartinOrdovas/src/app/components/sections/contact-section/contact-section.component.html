@@ -3,11 +3,11 @@
 >
   <!-- Translucent Glassmorphism Card (optimized for 16:9 viewports & mobile) -->
   <div
-    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
   >
     <!-- Heading -->
     <h2
-      class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#e192ab] mb-4 sm:mb-6 drop-shadow-[2px_2px_4px_#402835]"
+      class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#38bdf8] mb-4 sm:mb-6 drop-shadow-[2px_2px_4px_rgba(2,6,23,0.9)]"
     >
       &gt; contact me
     </h2>
@@ -21,9 +21,9 @@
             [href]="link.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="glass-btn group flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-white/10 transition-all duration-300 hover:border-[#e192ab]/60 flex-1"
+            class="glass-btn group flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-sky-500/20 transition-all duration-300 hover:border-[#38bdf8]/60 flex-1"
           >
-            <span class="text-xs sm:text-sm font-semibold text-[#ede6c8] group-hover:text-[#e192ab] transition-colors">
+            <span class="text-xs sm:text-sm font-semibold text-[#f1f5f9] group-hover:text-[#38bdf8] transition-colors">
               {{ link.name }}
             </span>
 
@@ -64,9 +64,9 @@
       <!-- Right Column: Translucent Info Box -->
       <div class="lg:col-span-7">
         <div
-          class="glass-card-nested p-4 sm:p-6 rounded-xl border border-white/10 shadow-xl flex flex-col justify-between space-y-4"
+          class="glass-card-nested p-4 sm:p-6 rounded-xl border border-sky-500/20 shadow-xl flex flex-col justify-between space-y-4"
         >
-          <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-[#ede6c8] drop-shadow">
+          <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-[#f1f5f9] drop-shadow">
             {{ profile.statusMessage }}
           </p>
 
@@ -75,9 +75,9 @@
             <button
               type="button"
               (click)="copyEmail()"
-              class="glass-btn px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#ede6c8] flex items-center gap-2 cursor-pointer focus:outline-none"
+              class="glass-btn px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#f1f5f9] flex items-center gap-2 cursor-pointer focus:outline-none"
             >
-              <svg class="w-3.5 h-3.5 text-[#d39c7c]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-3.5 h-3.5 text-[#93c5fd]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -90,7 +90,7 @@
 
             <a
               href="mailto:martinordovas@gmail.com"
-              class="glass-btn px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#e192ab] flex items-center gap-2 cursor-pointer"
+              class="glass-btn px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#38bdf8] flex items-center gap-2 cursor-pointer"
             >
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path

@@ -3,11 +3,11 @@
 >
   <!-- Translucent Glassmorphism Card (optimized for 16:9 viewports & mobile) -->
   <div
-    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
   >
     <!-- Heading -->
     <h2
-      class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#e192ab] mb-4 sm:mb-6 drop-shadow-[2px_2px_4px_#402835]"
+      class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#38bdf8] mb-4 sm:mb-6 drop-shadow-[2px_2px_4px_rgba(2,6,23,0.9)]"
     >
       &gt; about me
     </h2>
@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start">
       <!-- Left Column: Bio & Photo -->
       <div class="lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-5">
-        <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-[#ede6c8] drop-shadow">
+        <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-[#f1f5f9] drop-shadow">
           {{ profile.bio }}
         </p>
 
@@ -28,20 +28,20 @@
             <img
               [src]="profile.photoUrl"
               [alt]="profile.name"
-              class="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 object-cover rounded-xl border border-white/15 shadow-xl filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500 ease-out"
+              class="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 object-cover rounded-xl border border-sky-500/30 shadow-xl filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500 ease-out"
             />
             <div
-              class="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none"
+              class="absolute inset-0 rounded-xl ring-1 ring-inset ring-sky-400/20 pointer-events-none"
             ></div>
           </div>
 
           <!-- Based in info -->
           <div class="text-center sm:text-left flex flex-col justify-center sm:pt-2">
             <span
-              class="text-xs uppercase tracking-widest text-[#d39c7c] font-semibold flex items-center justify-center sm:justify-start gap-1.5"
+              class="text-xs uppercase tracking-widest text-[#93c5fd] font-semibold flex items-center justify-center sm:justify-start gap-1.5"
             >
               <svg
-                class="w-3.5 h-3.5 text-[#d39c7c]"
+                class="w-3.5 h-3.5 text-[#93c5fd]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -61,7 +61,7 @@
               </svg>
               Based in
             </span>
-            <p class="mt-0.5 text-sm sm:text-base lg:text-lg font-bold text-[#ede6c8]">
+            <p class="mt-0.5 text-sm sm:text-base lg:text-lg font-bold text-[#f1f5f9]">
               {{ profile.location }}
             </p>
           </div>
@@ -71,10 +71,10 @@
       <!-- Right Column: Core Tech Stack -->
       <div class="lg:col-span-5">
         <div
-          class="glass-card-nested p-4 sm:p-5 rounded-xl border border-white/10 shadow-xl transition-all duration-300 hover:scale-[1.01]"
+          class="glass-card-nested p-4 sm:p-5 rounded-xl border border-sky-500/20 shadow-xl transition-all duration-300 hover:scale-[1.01]"
         >
           <h3
-            class="text-xs sm:text-sm font-semibold tracking-widest text-[#d39c7c] uppercase mb-3"
+            class="text-xs sm:text-sm font-semibold tracking-widest text-[#93c5fd] uppercase mb-3"
           >
             &gt; core stack
           </h3>
@@ -82,14 +82,14 @@
           <div class="space-y-3 sm:space-y-3.5">
             @for (skill of skills; track skill.name) {
               <div class="group">
-                <div class="flex items-center justify-between text-xs sm:text-sm text-[#ede6c8] mb-1">
+                <div class="flex items-center justify-between text-xs sm:text-sm text-[#f1f5f9] mb-1">
                   <div class="flex items-center gap-2">
                     <img
                       [src]="skill.icon"
                       [alt]="skill.name"
                       class="w-4 h-4 sm:w-5 sm:h-5 object-contain transition-transform group-hover:scale-110"
                     />
-                    <span class="font-medium tracking-tight group-hover:text-white transition-colors text-xs sm:text-sm">
+                    <span class="font-medium tracking-tight group-hover:text-sky-300 transition-colors text-xs sm:text-sm">
                       {{ skill.name }}
                     </span>
                   </div>
@@ -99,7 +99,7 @@
                 <!-- Progress Bar -->
                 <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
                   <div
-                    class="h-full bg-[#d39c7c] rounded-full transition-all duration-1000 ease-out shadow-[0_0_8px_rgba(211,156,124,0.6)]"
+                    class="h-full bg-[#93c5fd] rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(147,197,253,0.7)]"
                     [style.width.%]="skill.percentage"
                   ></div>
                 </div>

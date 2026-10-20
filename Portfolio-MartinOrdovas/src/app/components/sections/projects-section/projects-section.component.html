@@ -4,7 +4,7 @@
   <!-- Translucent Glassmorphism Card (smooth vertical Y height animation on tab switch) -->
   <div
     #mainCard
-    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col transition-[height] duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col transition-[height] duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden"
     [style.height]="cardHeight() ? cardHeight() : 'auto'"
   >
     <!-- Header with Title & Horizontal Tabs -->
@@ -12,11 +12,11 @@
       <!-- Heading with project counter -->
       <div class="flex items-baseline gap-3">
         <h2
-          class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#e192ab] drop-shadow-[2px_2px_4px_#402835]"
+          class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#38bdf8] drop-shadow-[2px_2px_4px_rgba(2,6,23,0.9)]"
         >
           &gt; projects
         </h2>
-        <span class="text-xs font-mono text-[#d39c7c]/75 font-semibold tracking-wider">
+        <span class="text-xs font-mono text-[#93c5fd]/80 font-semibold tracking-wider">
           [{{ '0' + currentIndex() }} / {{ '0' + projects.length }}]
         </span>
       </div>
@@ -29,7 +29,7 @@
             (click)="selectProject(project)"
             class="glass-btn px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide cursor-pointer whitespace-nowrap focus:outline-none shrink-0 transition-all duration-300"
             [class.glass-btn-active]="selectedProject().id === project.id"
-            [class.text-[#ede6c8]]="selectedProject().id !== project.id"
+            [class.text-[#f1f5f9]]="selectedProject().id !== project.id"
           >
             {{ project.tabLabel }}
           </button>
@@ -40,7 +40,7 @@
     <!-- Project Detail Card -->
     <div
       #innerCard
-      class="glass-card-nested relative p-4 sm:p-5 lg:p-6 rounded-xl border border-white/10 shadow-2xl bg-gradient-to-br from-black/80 via-black/60 to-purple-950/20"
+      class="glass-card-nested relative p-4 sm:p-5 lg:p-6 rounded-xl border border-sky-500/20 shadow-2xl bg-gradient-to-br from-slate-950/85 via-slate-950/60 to-sky-950/25"
     >
       <!-- Content grid with smooth cross-fade animation -->
       <div
@@ -51,9 +51,9 @@
       >
         <!-- Project Image Mockup (with perfectly rounded window header) -->
         <div class="lg:col-span-6 flex justify-center order-2 lg:order-1">
-          <div class="relative w-full group isolate rounded-xl overflow-hidden border border-[#e192ab]/40 shadow-[0_0_15px_rgba(225,146,171,0.25)] transition-all duration-500 hover:shadow-[0_0_24px_rgba(225,146,171,0.5)]">
+          <div class="relative w-full group isolate rounded-xl overflow-hidden border border-[#38bdf8]/40 shadow-[0_0_15px_rgba(56,189,248,0.25)] transition-all duration-500 hover:shadow-[0_0_24px_rgba(56,189,248,0.5)]">
             <!-- Terminal bar mockup on top of preview (rounded-t-[11px] perfectly matches border radius) -->
-            <div class="flex items-center justify-between px-3 py-1.5 bg-black/85 border-b border-white/10 select-none rounded-t-[11px]">
+            <div class="flex items-center justify-between px-3 py-1.5 bg-slate-950/90 border-b border-sky-500/20 select-none rounded-t-[11px]">
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70 inline-block"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block"></span>
@@ -72,7 +72,7 @@
 
             <!-- Subtle glass reflection gradient -->
             <div
-              class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none rounded-b-[11px]"
+              class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none rounded-b-[11px]"
             ></div>
           </div>
         </div>
@@ -81,20 +81,20 @@
         <div class="lg:col-span-6 flex flex-col justify-between space-y-3 sm:space-y-4 order-1 lg:order-2">
           <div>
             <!-- Title -->
-            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-[#ede6c8] tracking-tight flex items-center gap-2">
+            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-[#f1f5f9] tracking-tight flex items-center gap-2">
               <span>{{ selectedProject().title }}</span>
             </h3>
 
             <!-- Subtitle / Short description -->
-            <p class="mt-1 text-xs sm:text-sm text-[#d39c7c] leading-relaxed font-medium">
+            <p class="mt-1 text-xs sm:text-sm text-[#93c5fd] leading-relaxed font-medium">
               {{ selectedProject().subtitle }}
             </p>
 
             <!-- Bullet points list with styled prompts -->
-            <ul class="mt-2.5 sm:mt-3 space-y-1.5 text-xs sm:text-sm text-[#ede6c8]/90">
+            <ul class="mt-2.5 sm:mt-3 space-y-1.5 text-xs sm:text-sm text-[#f1f5f9]/90">
               @for (bullet of selectedProject().bullets; track bullet) {
                 <li class="flex items-start gap-2 group/bullet">
-                  <span class="text-[#d39c7c] font-bold shrink-0 transition-transform group-hover/bullet:translate-x-0.5">&gt;</span>
+                  <span class="text-[#38bdf8] font-bold shrink-0 transition-transform group-hover/bullet:translate-x-0.5">&gt;</span>
                   <span class="leading-relaxed">{{ bullet }}</span>
                 </li>
               }
@@ -105,7 +105,7 @@
               <div class="flex flex-wrap gap-1.5 pt-2.5 sm:pt-3">
                 @for (tag of selectedProject().tags; track tag) {
                   <span
-                    class="px-2 py-0.5 rounded-md text-[10px] font-mono tracking-wider bg-white/5 border border-white/10 text-neutral-300 transition-colors hover:border-[#e192ab]/40 hover:text-white"
+                    class="px-2 py-0.5 rounded-md text-[10px] font-mono tracking-wider bg-white/5 border border-sky-500/20 text-neutral-300 transition-colors hover:border-[#38bdf8]/50 hover:text-white"
                   >
                     {{ tag }}
                   </span>
@@ -121,7 +121,7 @@
                 [href]="selectedProject().githubUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#ede6c8] flex items-center gap-1.5"
+                class="glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#f1f5f9] flex items-center gap-1.5"
               >
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -138,7 +138,7 @@
                 [href]="selectedProject().demoUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#e192ab] flex items-center gap-1.5 border-[#e192ab]/40"
+                class="glass-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#38bdf8] flex items-center gap-1.5 border-[#38bdf8]/40"
               >
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
