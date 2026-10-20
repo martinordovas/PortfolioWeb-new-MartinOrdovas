@@ -6,6 +6,7 @@
     #mainCard
     class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col transition-[height] duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden"
     [style.height]="cardHeight() ? cardHeight() : 'auto'"
+    [class.animate-section-bounce]="scrollService.activeSection() === 'proyectos'"
   >
     <!-- Header with Title & Horizontal Tabs -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3 sm:mb-4 shrink-0">

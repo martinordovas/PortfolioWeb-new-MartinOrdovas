@@ -4,6 +4,7 @@
   <!-- Translucent Glassmorphism Card (optimized for 16:9 viewports & mobile) -->
   <div
     class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-300"
+    [class.animate-section-bounce]="scrollService.activeSection() === 'sobreMi'"
   >
     <!-- Heading -->
     <h2

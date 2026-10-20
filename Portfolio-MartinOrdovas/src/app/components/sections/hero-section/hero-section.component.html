@@ -3,7 +3,8 @@
 >
   <!-- Central Hero Glass Card -->
   <div
-    class="glass-card w-full max-w-3xl p-5 sm:p-8 md:p-10 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-sky-500/40 animate-in fade-in zoom-in-95 duration-500"
+    class="glass-card w-full max-w-3xl p-5 sm:p-8 md:p-10 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-sky-500/40"
+    [class.animate-section-bounce]="scrollService.activeSection() === 'inicio'"
   >
     <!-- Name -->
     <h1
@@ -12,11 +13,12 @@
       {{ profile.name }}
     </h1>
 
-    <!-- Subtitle Terminal Prompt -->
+    <!-- Subtitle Terminal Prompt with Typing Effect & Blinking Cursor -->
     <h2
-      class="mt-2.5 sm:mt-4 text-sm sm:text-lg md:text-xl font-medium text-[#93c5fd] tracking-wide drop-shadow-[1px_1px_4px_rgba(2,6,23,0.9)]"
+      class="mt-2.5 sm:mt-4 text-sm sm:text-lg md:text-xl font-medium text-[#93c5fd] tracking-wide drop-shadow-[1px_1px_4px_rgba(2,6,23,0.9)] flex items-center flex-wrap min-h-[1.75em]"
     >
-      {{ profile.role }}
+      <span>{{ typedText() }}</span>
+      <span class="inline-block w-2.5 h-4 sm:h-5 ml-1 bg-[#38bdf8] animate-pulse shadow-[0_0_8px_#38bdf8]"></span>
     </h2>
 
     <!-- Action Buttons -->

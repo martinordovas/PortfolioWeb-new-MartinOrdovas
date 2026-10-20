@@ -3,11 +3,13 @@ import {
   ElementRef,
   ViewChild,
   computed,
+  inject,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PROJECTS_DATA } from '../../../core/data/portfolio.data';
 import { Project } from '../../../core/models/portfolio.model';
+import { ScrollService } from '../../../core/services/scroll.service';
 
 @Component({
   selector: 'app-projects-section',
@@ -20,6 +22,7 @@ export class ProjectsSectionComponent {
   @ViewChild('mainCard') mainCardRef?: ElementRef<HTMLElement>;
   @ViewChild('innerCard') innerCardRef?: ElementRef<HTMLElement>;
 
+  protected readonly scrollService = inject(ScrollService);
   protected readonly projects: Project[] = PROJECTS_DATA;
   protected readonly selectedProject = signal<Project>(PROJECTS_DATA[0]);
   protected readonly isChanging = signal<boolean>(false);
@@ -38,7 +41,6 @@ export class ProjectsSectionComponent {
     const cardEl = this.mainCardRef?.nativeElement;
     const innerEl = this.innerCardRef?.nativeElement;
 
-    // 1. Measure initial heights before tab switch
     const currentCardH = cardEl ? cardEl.offsetHeight : 0;
     const oldInnerH = innerEl ? innerEl.offsetHeight : 0;
 
@@ -46,27 +48,22 @@ export class ProjectsSectionComponent {
       this.cardHeight.set(`${currentCardH}px`);
     }
 
-    // 2. Start subtle cross-fade
     this.isChanging.set(true);
 
     setTimeout(() => {
-      // 3. Switch project data
       this.selectedProject.set(project);
 
-      // 4. In next frame, compute new height based on delta of content
       requestAnimationFrame(() => {
         if (cardEl && innerEl) {
           const newInnerH = innerEl.offsetHeight;
           const delta = newInnerH - oldInnerH;
           const targetCardH = Math.max(currentCardH + delta, 300);
 
-          // Animate smoothly to target height (both expanding and shrinking)
           this.cardHeight.set(`${targetCardH}px`);
         }
 
         this.isChanging.set(false);
 
-        // 5. Unlock height back to auto after CSS transition finishes
         setTimeout(() => {
           this.cardHeight.set(null);
         }, 370);
