@@ -12,19 +12,42 @@ export class ScrollService {
   scrollToSection(sectionId: string): void {
     const cleanId = sectionId.replace(/^#/, '');
     const element = document.getElementById(cleanId);
+    if (!element) return;
 
-    if (this.scrollContainer && element) {
-      // Calculate exact offset inside scroll container
-      const targetTop = element.offsetTop;
-      this.scrollContainer.scrollTo({
-        top: targetTop,
-        behavior: 'smooth',
-      });
-      this.activeSection.set(cleanId);
-    } else if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      this.activeSection.set(cleanId);
-    }
+    const targetTop = this.scrollContainer ? element.offsetTop : element.getBoundingClientRect().top + window.pageYOffset;
+    const startTop = this.scrollContainer ? this.scrollContainer.scrollTop : window.pageYOffset;
+    const distance = targetTop - startTop;
+
+    // Adjusted duration in ms for custom scroll speed (e.g. 450ms for a snappy yet smooth transition)
+    const duration = 450;
+    let startTime: number | null = null;
+
+    const animation = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+
+      // Ease-in-out cubic easing function
+      const ease = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+      const currentTop = startTop + distance * ease;
+
+      if (this.scrollContainer) {
+        this.scrollContainer.scrollTop = currentTop;
+      } else {
+        window.scrollTo(0, currentTop);
+      }
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      } else {
+        this.activeSection.set(cleanId);
+      }
+    };
+
+    requestAnimationFrame(animation);
   }
 
   initScrollSpy(sectionIds: string[], scrollContainer?: HTMLElement | null): void {
@@ -32,7 +55,6 @@ export class ScrollService {
     this.scrollContainer = scrollContainer || null;
 
     if (this.scrollContainer) {
-      // Initial check
       this.updateActiveSection();
     }
   }
@@ -54,7 +76,6 @@ export class ScrollService {
 
     const scrollTop = this.scrollContainer.scrollTop;
     const containerHeight = this.scrollContainer.clientHeight;
-    // Target the center-third line of current view
     const focalPoint = scrollTop + containerHeight * 0.45;
 
     let closestId = this.sectionIds[0];
@@ -68,7 +89,6 @@ export class ScrollService {
       const height = el.offsetHeight;
       const middle = top + height / 2;
 
-      // Distance from middle of section to focal point
       const diff = Math.abs(focalPoint - middle);
       if (diff < minDiff) {
         minDiff = diff;
