@@ -11,6 +11,14 @@ export class ScrollService {
 
   scrollToSection(sectionId: string): void {
     const cleanId = sectionId.replace(/^#/, '');
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+    if (isMobile) {
+      // On mobile, instantly switch active section without scrolling
+      this.activeSection.set(cleanId);
+      return;
+    }
+
     const element = document.getElementById(cleanId);
     if (!element) return;
 
@@ -18,7 +26,6 @@ export class ScrollService {
     const startTop = this.scrollContainer ? this.scrollContainer.scrollTop : window.pageYOffset;
     const distance = targetTop - startTop;
 
-    // Adjusted duration in ms for custom scroll speed (e.g. 450ms for a snappy yet smooth transition)
     const duration = 450;
     let startTime: number | null = null;
 
@@ -27,7 +34,6 @@ export class ScrollService {
       const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
 
-      // Ease-in-out cubic easing function
       const ease = progress < 0.5
         ? 4 * progress * progress * progress
         : 1 - Math.pow(-2 * progress + 2, 3) / 2;

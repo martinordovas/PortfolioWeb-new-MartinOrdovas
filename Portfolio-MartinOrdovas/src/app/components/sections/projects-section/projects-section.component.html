@@ -1,11 +1,10 @@
 <section
   class="relative flex flex-col items-center justify-center w-full h-full min-h-[100dvh] px-3 sm:px-6 lg:px-8 pt-16 pb-8"
 >
-  <!-- Translucent Glassmorphism Card (smooth vertical Y height animation on tab switch) -->
+  <!-- Translucent Glassmorphism Card (scrollable on small viewports, matching about-section) -->
   <div
     #mainCard
-    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col transition-[height] duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden"
-    [style.height]="cardHeight() ? cardHeight() : 'auto'"
+    class="glass-card w-full max-w-5xl p-4 sm:p-6 lg:p-7 rounded-2xl border border-sky-500/20 shadow-2xl backdrop-blur-xl flex flex-col max-h-[calc(100dvh-5rem)] overflow-y-auto transition-all duration-350"
     [class.animate-section-bounce]="scrollService.activeSection() === 'proyectos'"
   >
     <!-- Header with Title & Horizontal Tabs -->
@@ -78,7 +77,7 @@
           </div>
         </div>
 
-        <!-- Project Details (adapts naturally so main card animates its vertical Y height) -->
+        <!-- Project Details -->
         <div class="lg:col-span-6 flex flex-col justify-between space-y-3 sm:space-y-4 order-1 lg:order-2">
           <div>
             <!-- Title -->
@@ -115,7 +114,7 @@
             }
           </div>
 
-          <!-- Action Links with ample bottom padding -->
+          <!-- Action Links -->
           <div class="flex items-center gap-3 pt-2 pb-1">
             @if (selectedProject().githubUrl) {
               <a

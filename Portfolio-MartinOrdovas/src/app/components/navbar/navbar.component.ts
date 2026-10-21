@@ -16,10 +16,11 @@ export class NavbarComponent {
   protected readonly navItems: NavItem[] = NAV_ITEMS;
   protected readonly isMobileMenuOpen = signal<boolean>(false);
 
-  // Navbar is transparent when on 'inicio' (home) and mobile menu is closed
-  protected readonly isNavbarScrolled = computed(
-    () => this.scrollService.activeSection() !== 'inicio' || this.isMobileMenuOpen()
-  );
+  // On mobile (<768px), navbar is always scrolled (fixed full-width top bar).
+  protected readonly isNavbarScrolled = computed(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    return isMobile || this.scrollService.activeSection() !== 'inicio' || this.isMobileMenuOpen();
+  });
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update((open) => !open);

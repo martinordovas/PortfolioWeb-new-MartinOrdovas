@@ -4,17 +4,43 @@
 <!-- Top Translucent Navbar -->
 <app-navbar />
 
-<!-- Side vertical indicators (dots) -->
-<app-scroll-indicators />
+<!-- Side vertical indicators (dots) - desktop only -->
+<app-scroll-indicators class="hidden md:flex" />
 
-<!-- Main scroll-snap container -->
+<!-- Desktop Scroll-snap container -->
 <main
   #scrollContainer
   (scroll)="onContainerScroll()"
-  class="snap-container w-full h-full relative z-10"
+  class="snap-container w-full h-full relative z-10 hidden md:block"
 >
   <app-hero-section id="inicio" />
   <app-about-section id="sobreMi" />
   <app-projects-section id="proyectos" />
   <app-contact-section id="contactame" />
+</main>
+
+<!-- Mobile Pseudo-Scroll Single-Section View (Swipes & wheel trigger component switching) -->
+<main
+  class="w-full h-[100dvh] relative z-10 block md:hidden pt-16 pb-4 px-3 flex items-center justify-center overflow-hidden touch-pan-y"
+  (touchstart)="onTouchStart($event)"
+  (touchend)="onTouchEnd($event)"
+  (wheel)="onWheel($event)"
+>
+  @switch (scrollService.activeSection()) {
+    @case ('inicio') {
+      <app-hero-section id="inicio" class="w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-300" />
+    }
+    @case ('sobreMi') {
+      <app-about-section id="sobreMi" class="w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-300" />
+    }
+    @case ('proyectos') {
+      <app-projects-section id="proyectos" class="w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-300" />
+    }
+    @case ('contactame') {
+      <app-contact-section id="contactame" class="w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-300" />
+    }
+    @default {
+      <app-hero-section id="inicio" class="w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-300" />
+    }
+  }
 </main>

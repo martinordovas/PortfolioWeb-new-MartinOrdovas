@@ -1,12 +1,25 @@
-<nav class="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+<nav
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out"
+  [ngClass]="{
+    'px-0 pt-0': isNavbarScrolled(),
+    'px-3 sm:px-6 pt-3': !isNavbarScrolled()
+  }"
+>
   <div
-    class="pointer-events-auto transition-all duration-700 ease-in-out mx-auto"
+    class="transition-all duration-700 ease-in-out mx-auto overflow-hidden"
     [ngClass]="{
-      'w-full max-w-full rounded-none bg-slate-950/85 backdrop-blur-md border-b border-sky-500/20 shadow-2xl px-4 sm:px-6 lg:px-8 py-3': isNavbarScrolled(),
-      'w-[90%] max-w-2xl mt-3 rounded-2xl glass-card border border-sky-500/35 shadow-2xl backdrop-blur-xl px-4 py-1.5': !isNavbarScrolled()
+      'w-full max-w-full rounded-none bg-slate-950/90 backdrop-blur-md border-b border-sky-500/20 shadow-2xl': isNavbarScrolled(),
+      'w-full max-w-3xl rounded-2xl glass-card border border-sky-500/35 shadow-2xl backdrop-blur-xl': !isNavbarScrolled()
     }"
   >
-    <div class="flex items-center justify-between transition-all duration-700 ease-in-out">
+    <!-- Top Bar Header -->
+    <div
+      class="flex items-center justify-between transition-all duration-700 ease-in-out"
+      [ngClass]="{
+        'px-4 sm:px-6 lg:px-8 py-3.5': isNavbarScrolled(),
+        'px-5 py-2': !isNavbarScrolled()
+      }"
+    >
       <!-- Terminal / Logo brand -->
       <a
         (click)="onNavigate('inicio', $event)"
@@ -73,35 +86,31 @@
         </button>
       </div>
     </div>
-  </div>
 
-  <!-- Mobile Dropdown Menu with smooth height transition & matching glassmorphism -->
-  <div
-    class="md:hidden mobile-menu-wrapper border-sky-500/25 mx-auto transition-all duration-700 ease-in-out"
-    [ngClass]="{
-      'w-full': isNavbarScrolled(),
-      'w-[90%] max-w-2xl': !isNavbarScrolled(),
-      'open border-t border-b': isMobileMenuOpen()
-    }"
-  >
-    <div class="mobile-menu-inner backdrop-blur-2xl bg-slate-950/95 shadow-2xl rounded-b-2xl">
-      <div class="px-4 pt-3 pb-5 space-y-1.5">
-        @for (item of navItems; track item.id) {
-          <a
-            (click)="onNavigate(item.id, $event)"
-            [href]="item.href"
-            class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer border border-transparent"
-            [class.bg-[#38bdf8]/15]="scrollService.activeSection() === item.id"
-            [class.border-[#38bdf8]/40]="scrollService.activeSection() === item.id"
-            [class.text-[#38bdf8]]="scrollService.activeSection() === item.id"
-            [class.shadow-[0_0_12px_rgba(56,189,248,0.3)]]="scrollService.activeSection() === item.id"
-            [class.text-neutral-300]="scrollService.activeSection() !== item.id"
-            [class.hover:bg-white/5]="scrollService.activeSection() !== item.id"
-            [class.hover:text-[#f1f5f9]]="scrollService.activeSection() !== item.id"
-          >
-            {{ item.label }}
-          </a>
-        }
+    <!-- Mobile Dropdown Menu -->
+    <div
+      class="md:hidden mobile-menu-wrapper transition-all duration-700 ease-in-out border-t border-sky-500/20"
+      [class.open]="isMobileMenuOpen()"
+    >
+      <div class="mobile-menu-inner backdrop-blur-2xl bg-slate-950/95">
+        <div class="px-4 pt-3 pb-5 space-y-1.5">
+          @for (item of navItems; track item.id) {
+            <a
+              (click)="onNavigate(item.id, $event)"
+              [href]="item.href"
+              class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer border border-transparent"
+              [class.bg-[#38bdf8]/15]="scrollService.activeSection() === item.id"
+              [class.border-[#38bdf8]/40]="scrollService.activeSection() === item.id"
+              [class.text-[#38bdf8]]="scrollService.activeSection() === item.id"
+              [class.shadow-[0_0_12px_rgba(56,189,248,0.3)]]="scrollService.activeSection() === item.id"
+              [class.text-neutral-300]="scrollService.activeSection() !== item.id"
+              [class.hover:bg-white/5]="scrollService.activeSection() !== item.id"
+              [class.hover:text-[#f1f5f9]]="scrollService.activeSection() !== item.id"
+            >
+              {{ item.label }}
+            </a>
+          }
+        </div>
       </div>
     </div>
   </div>
