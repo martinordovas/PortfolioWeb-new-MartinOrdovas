@@ -1,59 +1,72 @@
-# PortfolioMartinOrdovas
+# Local Development & Deployment Guide
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
+This guide explains how to set up, run, and build the **Portfolio Martin Ordovás** project locally on your machine.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📋 Prerequisites
 
+Make sure you have the following installed on your system:
+- **Node.js** (v18.0.0 or higher recommended)
+- **npm** (comes bundled with Node.js)
+
+Verify your installation by running:
 ```bash
-ng serve
+node -v
+npm -v
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## ⚙️ Setup & Installation
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/martinordovas/PortfolioWeb-new-MartinOrdovas.git
+   cd PortfolioWeb-new-MartinOrdovas/Portfolio-MartinOrdovas
+   ```
 
-```bash
-ng generate component component-name
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🚀 Running the Local Development Server
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+To start the development server with live reload:
 
 ```bash
-ng test
+npm start
+```
+*(Alternatively, you can run `ng serve`)*
+
+Once the server is running, open your web browser and navigate to:
+```text
+http://localhost:4200/
 ```
 
-## Running end-to-end tests
+The application will automatically reload whenever you modify any of the source files in `src/`.
 
-For end-to-end (e2e) testing, run:
+---
+
+## 🏗️ Building for Production
+
+To generate the optimized production build:
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This will compile the application and store the build artifacts in the `dist/` directory. The production build includes performance optimizations, minification, and Ahead-of-Time (AOT) compilation.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🧪 Running Tests
+
+To execute unit tests using the Vitest test runner:
+
+```bash
+npm test
+```
