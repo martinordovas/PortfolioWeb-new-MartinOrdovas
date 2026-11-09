@@ -22,7 +22,12 @@
       </div>
 
       <!-- Tabs Pill Switcher (overflow-visible on desktop, smooth scroll with safe padding on mobile) -->
-      <div class="flex items-center gap-2 overflow-x-auto sm:overflow-visible no-scrollbar p-2">
+      <div
+        class="flex items-center gap-2 overflow-x-auto sm:overflow-visible no-scrollbar p-2 touch-pan-x"
+        (touchstart)="$event.stopPropagation()"
+        (touchmove)="$event.stopPropagation()"
+        (touchend)="$event.stopPropagation()"
+      >
         @for (project of projects; track project.id) {
           <button
             type="button"
