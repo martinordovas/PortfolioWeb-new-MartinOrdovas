@@ -39,8 +39,8 @@ export class App implements AfterViewInit, OnDestroy {
   protected readonly scrollService = inject(ScrollService);
   private readonly isBrowser: boolean;
 
-  private touchStartY = 0;
-  private touchEndY = 0;
+  private touchStartX = 0;
+  private touchEndX = 0;
   private lastSwipeTime = 0;
 
   constructor(@Inject(PLATFORM_ID) platformId: object) {
@@ -64,12 +64,12 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   onTouchStart(event: TouchEvent): void {
-    this.touchStartY = event.touches[0].clientY;
+    this.touchStartX = event.touches[0].clientX;
   }
 
   onTouchEnd(event: TouchEvent): void {
     if (!this.isBrowser || window.innerWidth >= 768) return;
-    this.touchEndY = event.changedTouches[0].clientY;
+    this.touchEndX = event.changedTouches[0].clientX;
     this.handleSwipe();
   }
 
@@ -78,9 +78,9 @@ export class App implements AfterViewInit, OnDestroy {
     const now = Date.now();
     if (now - this.lastSwipeTime < 500) return;
 
-    if (Math.abs(event.deltaY) > 20) {
+    if (Math.abs(event.deltaX) > 20) {
       this.lastSwipeTime = now;
-      if (event.deltaY > 0) {
+      if (event.deltaX > 0) {
         this.navigateRelative(1); // next section
       } else {
         this.navigateRelative(-1); // prev section
@@ -92,13 +92,13 @@ export class App implements AfterViewInit, OnDestroy {
     const now = Date.now();
     if (now - this.lastSwipeTime < 500) return;
 
-    const diff = this.touchStartY - this.touchEndY;
+    const diff = this.touchStartX - this.touchEndX;
     if (Math.abs(diff) > 35) {
       this.lastSwipeTime = now;
       if (diff > 0) {
-        this.navigateRelative(1); // swipe up -> next section
+        this.navigateRelative(1); // swipe left -> next section
       } else {
-        this.navigateRelative(-1); // swipe down -> prev section
+        this.navigateRelative(-1); // swipe right -> prev section
       }
     }
   }
